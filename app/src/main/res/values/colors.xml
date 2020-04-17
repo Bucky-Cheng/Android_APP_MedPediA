@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#F2F2F2</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#ffffff</color>
+    <color name="tab">#ffffff</color>
+    <color name="exploreP">#3C3C3C</color>
+    <color name="DrP">#3C3C3C</color>
+    <color name="historyP">#3C3C3C</color>
+    <color name="exploreA">#0D13C5</color>
+    <color name="DrA">#0D13C5</color>
+    <color name="historyA">#0D13C5</color>
+</resources>
