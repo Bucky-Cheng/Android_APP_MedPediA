@@ -5,26 +5,26 @@
         <item
             android:id="@+id/login"
             android:icon="@drawable/ic_a"
-            android:title="LOGIN"></item>
+            android:title="登入"></item>
         <item
             android:id="@+id/chatting"
             android:icon="@drawable/ic_b"
-            android:title="Chat"></item>
+            android:title="傾偈"></item>
         <item
             android:id="@+id/setting"
             android:icon="@drawable/ic_a"
-            android:title="Setting"></item>
+            android:title="設定"></item>
         <item android:title="sub_item">
             <menu>
                 <group android:checkableBehavior="single">
                     <item
                         android:id="@+id/about"
                         android:icon="@drawable/ic_a"
-                        android:title="about"></item>
+                        android:title="關於"></item>
                     <item
                         android:id="@+id/privacy"
                         android:icon="@drawable/ic_b"
-                        android:title="privacy"></item>
+                        android:title="說明"></item>
 
                 </group>
             </menu>

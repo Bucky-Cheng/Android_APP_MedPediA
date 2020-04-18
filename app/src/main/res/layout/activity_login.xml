@@ -21,7 +21,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="3"
         android:gravity="center_horizontal"
         android:orientation="vertical">
@@ -34,127 +34,216 @@
 
             android:src="@mipmap/ic_icon" />
 
-        <TextView
-            android:id="@+id/titleText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/title_bottom_margin"
-            android:text="email Adress"
-            android:theme="@style/ThemeOverlay.MyTitleText" />
 
-        <TextView
-            android:id="@+id/status"
-            style="@style/ThemeOverlay.MyTextDetail"
-            android:text="signout" />
-
-        <TextView
-            android:id="@+id/detail"
-            style="@style/ThemeOverlay.MyTextDetail"
-            tools:text="Firebase User ID: 123456789abc" />
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@color/grey_300"
-        android:gravity="center_vertical">
 
         <LinearLayout
             android:id="@+id/emailPasswordFields"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:paddingLeft="16dp"
             android:paddingRight="16dp">
 
             <EditText
                 android:id="@+id/fieldEmail"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Email Adress"
+                android:hint="閣下之有效電子邮箱"
                 android:inputType="textEmailAddress" />
 
             <EditText
                 android:id="@+id/fieldPassword"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Email Password"
+                android:hint="密碼"
+
                 android:inputType="textPassword" />
         </LinearLayout>
-
         <LinearLayout
-            android:id="@+id/emailPasswordButtons"
+            android:id="@+id/uerProfileFields"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/emailPasswordFields"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:paddingLeft="16dp"
             android:paddingRight="16dp">
 
+            <EditText
+                android:id="@+id/fieldName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="用户名"
+                android:visibility="gone"
+                android:inputType="text" />
+            <RadioGroup
+                android:id="@+id/radiogroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                android:visibility="gone">
+            <RadioButton
+                android:id="@+id/HKR"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="香港居民"
+                />
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"/>
+            <RadioButton
+                android:id="@+id/HKDR"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="香港註冊醫師"
+                />
+            </RadioGroup>
+            <EditText
+                android:id="@+id/fieldDrID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="醫師號碼"
+                android:visibility="gone"
+                android:inputType="text" />
+        </LinearLayout>
+
+
+        <LinearLayout
+                android:id="@+id/emailPasswordButtons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="vertical"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
             <Button
                 android:id="@+id/emailSignInButton"
-                android:layout_marginStart="@dimen/button_horizontal_margin"
-                android:layout_marginEnd="@dimen/button_horizontal_margin"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_weight="1"
+                android:text="登入"
+                android:theme="@style/ThemeOverlay.MyDarkButton" />
+            <TextView
+                android:id="@+id/emailCreateAccountButton"
+                android:gravity="center_horizontal"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Sign In"
+                android:text="加入MedPediA"
+                android:textColor="@color/grey_700"
+                android:theme="@style/ThemeOverlay.MyDarkButton" />
+            <TextView
+                android:id="@+id/forgetPassword"
+                android:gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="忘記密碼"
+                android:textColor="@color/grey_700"
                 android:theme="@style/ThemeOverlay.MyDarkButton" />
 
-            <Button
-                android:id="@+id/emailCreateAccountButton"
-                android:layout_marginStart="@dimen/button_horizontal_margin"
-                android:layout_marginEnd="@dimen/button_horizontal_margin"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Create Accout"
-                android:theme="@style/ThemeOverlay.MyDarkButton" />
         </LinearLayout>
+
+
+
 
         <LinearLayout
             android:id="@+id/signedInButtons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:visibility="gone">
+        <Button
+            android:id="@+id/signOutButton"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="登出"
+            android:theme="@style/ThemeOverlay.MyDarkButton" />
+
+        <Button
+            android:id="@+id/verifyEmailButton"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="驗証電子邮箱"
+            android:theme="@style/ThemeOverlay.MyDarkButton" />
 
             <Button
-                android:id="@+id/signOutButton"
-                android:layout_marginStart="@dimen/button_horizontal_margin"
-                android:layout_marginEnd="@dimen/button_horizontal_margin"
-                android:layout_width="0dp"
+                android:id="@+id/verifyProfileButton"
+                android:visibility="gone"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Sign Out"
+                android:text="驗証信息"
                 android:theme="@style/ThemeOverlay.MyDarkButton" />
 
-            <Button
-                android:id="@+id/verifyEmailButton"
-                android:layout_marginStart="@dimen/button_horizontal_margin"
-                android:layout_marginEnd="@dimen/button_horizontal_margin"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Verfy"
-                android:theme="@style/ThemeOverlay.MyDarkButton" />
+        <Button
+            android:id="@+id/reloadButton"
 
-            <Button
-                android:id="@+id/reloadButton"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_marginStart="@dimen/button_horizontal_margin"
-                android:layout_marginEnd="@dimen/button_horizontal_margin"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Reload"
-                android:theme="@style/ThemeOverlay.MyDarkButton" />
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="下一步"
+            android:theme="@style/ThemeOverlay.MyDarkButton" />
         </LinearLayout>
-    </RelativeLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:gravity="center_horizontal"
+
+            android:orientation="vertical">
+
+            <!--<TextView
+                android:id="@+id/titleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/title_bottom_margin"
+                android:text="email Adress"
+                android:theme="@style/ThemeOverlay.MyTitleText" />-->
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/status"
+                style="@style/ThemeOverlay.MyTextDetail"
+                android:layout_centerHorizontal="true"
+                android:text="當前狀態：未登入"
+                android:layout_marginTop="300dp"
+                android:textColor="@color/grey_700"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/grey_700"
+                android:text="私隱政策"
+                android:layout_marginTop="330dp"/>
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
 </LinearLayout>
