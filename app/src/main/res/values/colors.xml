@@ -15,4 +15,7 @@
     <color name="grey_500">#9E9E9E</color>
     <color name="grey_700">#3C3C3C</color>
     <color name="black">#000000</color>
+    <color name="chat_background">#F0F5E1</color>
+    <color name="chat_right">#96CE94</color>
+
 </resources>

@@ -1,6 +1,7 @@
 package com.example.group_project_0_1.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.group_project_0_1.MessageActivity;
 import com.example.group_project_0_1.Model.chatUser;
 import com.example.group_project_0_1.R;
 
@@ -35,9 +37,19 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        chatUser user=mUsers.get(position);
+        final chatUser user=mUsers.get(position);
         holder.username.setText(user.getUsername());
         holder.profile_image.setImageResource(R.mipmap.ic_icon);
+
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(mContext, MessageActivity.class);
+                intent.putExtra("userid",user.getId());
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     @Override
