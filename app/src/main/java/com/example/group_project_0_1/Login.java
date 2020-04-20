@@ -107,6 +107,7 @@ public class Login extends ProgressActivity implements View.OnClickListener {
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
+        //mAuth.getCurrentUser().reload();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         updateUI(currentUser);
     }
@@ -367,16 +368,19 @@ public class Login extends ProgressActivity implements View.OnClickListener {
                 findViewById(R.id.verifyProfileButton).setVisibility(View.VISIBLE);
                 findViewById(R.id.verifyEmailButton).setVisibility(View.GONE);
                 findViewById(R.id.reloadButton).setVisibility(View.GONE);
+                //findViewById(R.id.signOutButton).setVisibility(View.VISIBLE);
             } else {
+                findViewById(R.id.signOutButton).setVisibility(View.GONE);
                 findViewById(R.id.verifyEmailButton).setVisibility(View.VISIBLE);
             }
         } else {
             mStatusTextView.setText("當前狀態：未登入");
-
-
+            findViewById(R.id.radiogroup).setVisibility(View.GONE);
+            findViewById(R.id.fieldName).setVisibility(View.GONE);
             findViewById(R.id.emailPasswordButtons).setVisibility(View.VISIBLE);
             findViewById(R.id.emailPasswordFields).setVisibility(View.VISIBLE);
             findViewById(R.id.signedInButtons).setVisibility(View.GONE);
+            findViewById(R.id.forgetPassword).setVisibility(View.VISIBLE);
         }
     }
 
@@ -388,7 +392,7 @@ public class Login extends ProgressActivity implements View.OnClickListener {
 
         findViewById(R.id.emailPasswordButtons).setVisibility(View.GONE);
         findViewById(R.id.emailPasswordFields).setVisibility(View.GONE);
-        findViewById(R.id.signedInButtons).setVisibility(View.VISIBLE);
+        findViewById(R.id.signOutButton).setVisibility(View.VISIBLE);
         findViewById(R.id.forgetPassword).setVisibility(View.GONE);
         findViewById(R.id.verifyEmailButton).setVisibility(View.GONE);
         mUserNameField.setVisibility(View.GONE);

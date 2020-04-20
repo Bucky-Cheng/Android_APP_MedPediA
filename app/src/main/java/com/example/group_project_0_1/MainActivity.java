@@ -16,6 +16,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.group_project_0_1.Adapter.MainFragmentAdapter;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -126,7 +127,11 @@ public class MainActivity extends AppCompatActivity {
                 intent=new Intent(this, Login.class);
                 break;
             case R.id.chatting:
-                intent=new Intent(this,Chatting.class);
+                if(FirebaseAuth.getInstance().getCurrentUser()==null){
+                    intent=new Intent(this, Login.class);
+                }else {
+                    intent = new Intent(this, Chatting.class);
+                }
                 break;
             case R.id.setting:
                 intent=new Intent(this,Setting.class);

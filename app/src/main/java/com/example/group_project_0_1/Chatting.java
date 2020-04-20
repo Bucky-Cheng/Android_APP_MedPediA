@@ -41,8 +41,12 @@ public class Chatting extends AppCompatActivity {
     private Toolbar toolbar;
 
     private FirebaseAuth mAuth;
+    public FirebaseAuth mAuth1;
     private FirebaseUser mUser;
     private DatabaseReference reference;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +59,12 @@ public class Chatting extends AppCompatActivity {
         username=findViewById(R.id.username);
         image=findViewById(R.id.profile_image);
 
-        mAuth = FirebaseAuth.getInstance();
+
+        mAuth=FirebaseAuth.getInstance();
         mUser= mAuth.getCurrentUser();
+
+
+
         reference= FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid());
 
         reference.addValueEventListener(new ValueEventListener() {
@@ -88,15 +96,9 @@ public class Chatting extends AppCompatActivity {
 
     }
 
-    // [START on_start_check_user]
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        UserIntercept(currentUser);
-    }
-    // [END on_start_check_user]
+
+
+
 
 
     public void UserIntercept(FirebaseUser user){
@@ -140,11 +142,15 @@ public class Chatting extends AppCompatActivity {
     //[START]View page adapter
     class ViewPageAdapter extends FragmentPagerAdapter{
 
+
         private ArrayList<Fragment> fragments;
         private ArrayList<String> titles;
 
         public ViewPageAdapter(FragmentManager fm) {
+
             super(fm);
+
+
             this.fragments=new ArrayList<>();
             this.titles=new ArrayList<>();
         }
