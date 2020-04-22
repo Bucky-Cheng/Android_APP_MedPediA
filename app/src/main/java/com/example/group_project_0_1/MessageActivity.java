@@ -62,7 +62,7 @@ public class MessageActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                startActivity(new Intent(MessageActivity.this,Chatting.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             }
         });
 
@@ -137,7 +137,7 @@ public class MessageActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mchat.clear();
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()){
-                    Chat chat=dataSnapshot.getValue(Chat.class);
+                    Chat chat=snapshot.getValue(Chat.class);
 
                     if(chat.getReceiver().equals(myid)&&chat.getSender().equals(userid)||
                     chat.getSender().equals(myid)&&chat.getReceiver().equals(userid)){
@@ -155,5 +155,25 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void status(String status){
+        reference=FirebaseDatabase.getInstance().getReference("Users").child(fuser.getUid());
+        HashMap<String,Object> hashMap=new HashMap<>();
+
+        hashMap.put("status",status);
+        reference.updateChildren(hashMap);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        status("online");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        status("offline");
     }
 }

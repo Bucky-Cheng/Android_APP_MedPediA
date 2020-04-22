@@ -21,10 +21,12 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     private Context mContext;
     private List<chatUser> mUsers;
+    private Boolean ischat;
 
-    public UserAdapter(Context context, List<chatUser> mUsers){
+    public UserAdapter(Context context, List<chatUser> mUsers, Boolean ischat){
         this.mContext=context;
         this.mUsers=mUsers;
+        this.ischat=ischat;
     }
 
     @NonNull
@@ -50,6 +52,19 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
                 mContext.startActivity(intent);
             }
         });
+
+        if(ischat){
+            if(user.getStatus().equals("online")){
+                holder.image_on.setVisibility(View.VISIBLE);
+                holder.image_off.setVisibility(View.GONE);
+            }else{
+                holder.image_on.setVisibility(View.GONE);
+                holder.image_off.setVisibility(View.VISIBLE);
+            }
+        }else{
+            holder.image_on.setVisibility(View.GONE);
+            holder.image_off.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -62,11 +77,16 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
         public TextView username;
         public ImageView profile_image;
+        public ImageView image_on;
+        public ImageView image_off;
+
         public ViewHolder(View itemView){
             super(itemView);
 
             username=itemView.findViewById(R.id.username);
             profile_image=itemView.findViewById(R.id.profile_image);
+            image_on=itemView.findViewById(R.id.image_on);
+            image_off=itemView.findViewById(R.id.image_off);
 
         }
     }
