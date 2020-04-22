@@ -27,6 +27,15 @@
         android:background="@drawable/background_right"
         android:layout_alignParentEnd="true"></TextView>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/seen_text"
+            android:text="seen"
+            android:layout_below="@+id/show_message"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"></TextView>
+
     </RelativeLayout>
 
 

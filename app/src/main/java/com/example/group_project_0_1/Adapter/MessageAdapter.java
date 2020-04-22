@@ -30,7 +30,10 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     private List<Chat> mChat;
     private String imageUrl;
 
+
     FirebaseUser fuser;
+
+
 
     public MessageAdapter(Context context, List<Chat> mChat){
         this.mContext=context;
@@ -56,6 +59,17 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         Chat chat=mChat.get(position);
         holder.show_message.setText(chat.getMessage());
         holder.profile_image.setImageResource(R.mipmap.ic_icon);
+
+        if(position==mChat.size()-1){
+
+            if(chat.getIsseen()){
+                holder.seen_text.setText("seen");
+            }else{
+                holder.seen_text.setText("delivered");
+            }
+        }else{
+            holder.seen_text.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -68,11 +82,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
         public TextView show_message;
         public ImageView profile_image;
+        private TextView seen_text;
         public ViewHolder(View itemView){
             super(itemView);
 
             show_message=itemView.findViewById(R.id.show_message);
             profile_image=itemView.findViewById(R.id.profile_image);
+            seen_text=itemView.findViewById(R.id.seen_text);
 
         }
     }

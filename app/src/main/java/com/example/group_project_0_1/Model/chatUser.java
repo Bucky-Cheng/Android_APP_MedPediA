@@ -5,14 +5,16 @@ public class chatUser {
     private String username;
     private String id;
     private String status;
+    private String search;
 
     public chatUser(){
 
     }
-    public  chatUser(String id, String username, String status){
+    public  chatUser(String id, String username, String status, String search){
         this.id=id;
         this.username=username;
         this.status=status;
+        this.search=search;
     }
 
     public String getUsername() {
@@ -37,5 +39,13 @@ public class chatUser {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getSearch() {
+        return search;
+    }
+
+    public void setSearch(String search) {
+        this.search = search;
     }
 }

@@ -262,6 +262,8 @@ public class Login extends ProgressActivity implements View.OnClickListener {
         HashMap<String,String> hashMap=new HashMap<>();
         hashMap.put("id",userid);
         hashMap.put("username",mUserNameField.getText().toString());
+        hashMap.put("status","offline");
+        hashMap.put("search",mUserNameField.getText().toString().toLowerCase());
 
         reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

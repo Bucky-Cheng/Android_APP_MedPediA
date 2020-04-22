@@ -21,5 +21,14 @@
         android:background="@drawable/background_left"
         android:textSize="18sp"></TextView>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/seen_text"
+        android:visibility="gone"
+        android:layout_below="@+id/show_message"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"></TextView>
+
 
 </RelativeLayout>
