@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import com.example.group_project_0_1.Adapter.UserAdapter;
 import com.example.group_project_0_1.Model.Chat;
 import com.example.group_project_0_1.Model.chatUser;
+import com.example.group_project_0_1.Notifications.Token;
 import com.example.group_project_0_1.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,6 +25,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,6 +85,8 @@ public class ChatsFragment extends Fragment {
             }
         });
 
+        updateToken(FirebaseInstanceId.getInstance().getToken());
+
         return view;
     }
 
@@ -128,6 +132,13 @@ public class ChatsFragment extends Fragment {
 
             }
         });
+    }
+
+    //Notification token
+    private void updateToken(String token){
+        DatabaseReference reference=FirebaseDatabase.getInstance().getReference("Tokens");
+        Token token1=new Token(token);
+        reference.child(fuser.getUid()).setValue(token1);
     }
 
     

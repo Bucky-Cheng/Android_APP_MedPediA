@@ -23,6 +23,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".SeeDrF" />
+
+        <service android:name=".Notifications.MyMessageService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"></action>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

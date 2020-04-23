@@ -77,8 +77,8 @@
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="-1dp"
+        android:layout_marginTop="7dp"
         android:layout_marginLeft="60dp"
         android:layout_marginRight="15dp"
-        android:background="@color/grey_500"></View>
+        android:background="@color/grey_300"></View>
 </LinearLayout>
