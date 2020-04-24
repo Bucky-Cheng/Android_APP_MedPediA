@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.solver.widgets.ResolutionDimension;
 
 import com.example.group_project_0_1.R;
+import com.example.group_project_0_1.Service.VerifyProfile;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -35,6 +36,8 @@ public class Login extends ProgressActivity implements View.OnClickListener {
 
     private static final String TAG = "EmailPassword";
 
+    private int STATUS_CODE=200;
+
     private TextView mStatusTextView;
 
 
@@ -42,6 +45,7 @@ public class Login extends ProgressActivity implements View.OnClickListener {
     private EditText mPasswordField;
     private EditText mUserNameField;
     private EditText mDrIDField;
+    private EditText mDrProField;
     private RadioGroup userProfile;
     private RadioButton HKR;
     private RadioButton HKDR;
@@ -68,6 +72,7 @@ public class Login extends ProgressActivity implements View.OnClickListener {
         mPasswordField = findViewById(R.id.fieldPassword);
         mUserNameField = findViewById(R.id.fieldName);
         mDrIDField=findViewById(R.id.fieldDrID);
+        mDrProField=findViewById(R.id.fieldDrPro);
         userProfile=findViewById(R.id.radiogroup);
         HKR=findViewById(R.id.HKR);
         HKDR=findViewById(R.id.HKDR);
@@ -93,6 +98,7 @@ public class Login extends ProgressActivity implements View.OnClickListener {
                     Toast.makeText(Login.this, "請輸入醫師號碼",
                             Toast.LENGTH_SHORT).show();
                     mDrIDField.setVisibility(View.VISIBLE);
+                    mDrProField.setVisibility(View.VISIBLE);
                     HKDRFlag=true;
                 } else {
                     mDrIDField.setVisibility(View.GONE);
@@ -402,6 +408,36 @@ public class Login extends ProgressActivity implements View.OnClickListener {
         findViewById(R.id.verifyProfileButton).setVisibility(View.GONE);
     }
 
+    public Boolean addDr(){
+        VerifyProfile verifyProfile=new VerifyProfile();
+        String uid=FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String DrName=mUserNameField.getText().toString();
+        String Drid=mDrIDField.getText().toString();
+        String Pro=mDrProField.getText().toString();
+        if(verifyProfile.VerifyDrID(Drid,Pro)){
+            if(verifyProfile.VerifyDr(uid,DrName,Drid,Pro)){
+                return true;
+            }else{
+                STATUS_CODE=400;
+                return false;
+            }
+        }else{
+            STATUS_CODE=500;
+            return false;
+        }
+    }
+
+    public Boolean addIllness(){
+        VerifyProfile verifyProfile=new VerifyProfile();
+        String uid=FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String username=mUserNameField.getText().toString();
+        if(verifyProfile.VerifyIllness(uid,username)){
+            return true;
+        }else{
+            STATUS_CODE=400;
+            return false;
+        }
+    }
 
     @Override
     public void onClick(View v) {
@@ -419,7 +455,27 @@ public class Login extends ProgressActivity implements View.OnClickListener {
         }else if(i== R.id.forgetPassword){
             sendPasswordReset(mEmailField.getText().toString());
         }else if(i == R.id.verifyProfileButton){
-            storeInFirebaseDatabase();
+
+            if(HKDRFlag){
+                if(addDr()){
+                    storeInFirebaseDatabase();
+                }else{
+                    if(STATUS_CODE==400){
+                        Toast.makeText(Login.this,"insert error",Toast.LENGTH_LONG).show();
+                    }else if(STATUS_CODE==500){
+                        Toast.makeText(Login.this,"醫師號碼或職業錯誤！",Toast.LENGTH_LONG).show();
+                    }
+                }
+            }else{
+                if(addIllness()){
+                    storeInFirebaseDatabase();
+                }else{
+                    if(STATUS_CODE==400){
+                        Toast.makeText(Login.this,"insert error",Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
         }
     }
 }
