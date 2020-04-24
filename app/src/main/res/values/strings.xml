@@ -11,4 +11,15 @@
     <string name="passwordless_status_fmt">Email User: %1$s (verified: %2$b)</string>
     <string name="passwordless_title_text">Passwordless Sign In</string>
     <string name="firebase_status_fmt">Firebase UID: %s</string>
+
+    <string-array name="pro_array">
+        <item>General Medicine</item>
+        <item>Family Medicine</item>
+        <item>Cardiology</item>
+        <item>Nephrology</item>
+        <item>Obstetyics &amp; Gynecology</item>
+        <item>Chest Surgery</item>
+        <item>Pediatrics</item>
+
+    </string-array>
 </resources>

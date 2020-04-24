@@ -6,9 +6,12 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ProgressBar;
@@ -30,6 +33,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
+import java.util.concurrent.BrokenBarrierException;
 
 
 public class Login extends ProgressActivity implements View.OnClickListener {
@@ -45,11 +49,13 @@ public class Login extends ProgressActivity implements View.OnClickListener {
     private EditText mPasswordField;
     private EditText mUserNameField;
     private EditText mDrIDField;
-    private EditText mDrProField;
+    private Spinner mDrProField;
     private RadioGroup userProfile;
     private RadioButton HKR;
     private RadioButton HKDR;
     private Boolean HKDRFlag=false;
+    private String illPro="";
+    private String[] illList;
 
     // [START declare_auth]
     private FirebaseAuth mAuth;
@@ -90,6 +96,26 @@ public class Login extends ProgressActivity implements View.OnClickListener {
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
         // [END initialize_auth]
+
+        //spinner
+        illList = getResources().getStringArray(R.array.pro_array);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+
+                android.R.layout.simple_spinner_item, illList);
+        mDrProField.setAdapter(adapter);
+        mDrProField.setOnItemSelectedListener(
+                new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> arg0,
+                                               View arg1, int arg2, long arg3) {
+                        int index = arg0.getSelectedItemPosition();
+                        illPro=illList[index];
+
+                    }
+                    @Override
+                    public void onNothingSelected(AdapterView<?> arg0) {
+                    }
+                });
 
         userProfile.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -408,14 +434,14 @@ public class Login extends ProgressActivity implements View.OnClickListener {
         findViewById(R.id.verifyProfileButton).setVisibility(View.GONE);
     }
 
-    public Boolean addDr(){
+    public Boolean addDr() throws BrokenBarrierException, InterruptedException {
         VerifyProfile verifyProfile=new VerifyProfile();
         String uid=FirebaseAuth.getInstance().getCurrentUser().getUid();
         String DrName=mUserNameField.getText().toString();
         String Drid=mDrIDField.getText().toString();
-        String Pro=mDrProField.getText().toString();
-        if(verifyProfile.VerifyDrID(Drid,Pro)){
-            if(verifyProfile.VerifyDr(uid,DrName,Drid,Pro)){
+
+        if(verifyProfile.VerifyDrID(Drid,illPro)){
+            if(verifyProfile.VerifyDr(uid,DrName,Drid,illPro)){
                 return true;
             }else{
                 STATUS_CODE=400;
@@ -427,7 +453,7 @@ public class Login extends ProgressActivity implements View.OnClickListener {
         }
     }
 
-    public Boolean addIllness(){
+    public Boolean addIllness() throws BrokenBarrierException, InterruptedException {
         VerifyProfile verifyProfile=new VerifyProfile();
         String uid=FirebaseAuth.getInstance().getCurrentUser().getUid();
         String username=mUserNameField.getText().toString();
@@ -457,22 +483,34 @@ public class Login extends ProgressActivity implements View.OnClickListener {
         }else if(i == R.id.verifyProfileButton){
 
             if(HKDRFlag){
-                if(addDr()){
-                    storeInFirebaseDatabase();
-                }else{
-                    if(STATUS_CODE==400){
-                        Toast.makeText(Login.this,"insert error",Toast.LENGTH_LONG).show();
-                    }else if(STATUS_CODE==500){
-                        Toast.makeText(Login.this,"醫師號碼或職業錯誤！",Toast.LENGTH_LONG).show();
+                try {
+                    if(addDr()){
+                        storeInFirebaseDatabase();
+                    }else{
+                        if(STATUS_CODE==400){
+                            Toast.makeText(Login.this,"insert error",Toast.LENGTH_LONG).show();
+                        }else if(STATUS_CODE==500){
+                            Toast.makeText(Login.this,"醫師號碼或職業錯誤！",Toast.LENGTH_LONG).show();
+                        }
                     }
+                } catch (BrokenBarrierException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }else{
-                if(addIllness()){
-                    storeInFirebaseDatabase();
-                }else{
-                    if(STATUS_CODE==400){
-                        Toast.makeText(Login.this,"insert error",Toast.LENGTH_LONG).show();
+                try {
+                    if(addIllness()){
+                        storeInFirebaseDatabase();
+                    }else{
+                        if(STATUS_CODE==400){
+                            Toast.makeText(Login.this,"insert error",Toast.LENGTH_LONG).show();
+                        }
                     }
+                } catch (BrokenBarrierException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
 

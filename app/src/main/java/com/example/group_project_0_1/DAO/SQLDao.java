@@ -10,7 +10,7 @@ public class SQLDao {
 
     public String AddIllness(Illness illness){
 
-        String SQL="INSERT INTO illness (uid, username, ill) VALUES ('"
+        String SQL="INSERT INTO illness (userid, username) VALUES ('"
                 + illness.getUid()+"', '"
                 +illness.getUsername()+"');";
         return SQL;
@@ -23,11 +23,16 @@ public class SQLDao {
 
     public String AddDr(Dr dr){
 
-        String SQL="INSERT INTO dr (uid, drname, drid, drpro) VALUES ('"
+        String SQL="INSERT INTO dr (userid, username, drid, drpro) VALUES ('"
                 + dr.getUid()+"', '"
                 +dr.getDrName()+"', '"
                 +dr.getDrID()+"','"
                 +dr.getPro()+"');";
+        return SQL;
+    }
+
+    public String upDateDrId(int id){
+        String SQL="UPDATE DrId SET flag = 1 WHERE id = "+id+"';";
         return SQL;
     }
 }
