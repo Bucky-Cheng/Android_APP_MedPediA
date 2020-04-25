@@ -6,12 +6,36 @@
     tools:context=".Fragment.ExploreF"
     android:background="@color/grey_300">
 
-    <!-- TODO: Update blank fragment layout -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
         android:orientation="vertical">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="搜尋..."
+            android:id="@+id/search_users"
+            android:background="#ffffff"
+            android:padding="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"></EditText>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/warning"
+            android:text="衞生警報：COVID19 武漢肺炎！"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            android:textColor="#ffffff"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:padding="15dp"></TextView>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -33,22 +57,13 @@
                 android:id="@+id/card1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="aaaaa"
+                android:text="本港過去14日內武漢肺炎之最新情況"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/black"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"></TextView>
 
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/grey_100"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="10dp">
-
-
 
         </RelativeLayout>
 
@@ -60,6 +75,55 @@
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="10dp">
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/chart2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/card2"
+                android:layout_marginBottom="5dp"></com.github.mikephil.charting.charts.BarChart>
+
+            <TextView
+                android:id="@+id/card2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="本港18區過去14日內曾有疑似/確診個案到訪之數量"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"></TextView>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/grey_100"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp">
+
+            <com.github.mikephil.charting.charts.PieChart
+
+                android:id="@+id/chart3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/card3"
+                android:layout_marginBottom="5dp"></com.github.mikephil.charting.charts.PieChart>
+
+            <TextView
+                android:id="@+id/card3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="本港個案潛伏期內曾到訪之國家"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"></TextView>
 
         </RelativeLayout>
 

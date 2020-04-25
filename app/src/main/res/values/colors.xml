@@ -18,4 +18,5 @@
     <color name="chat_background">#F0F5E1</color>
     <color name="chat_right">#96CE94</color>
     <color name="online">#297A41</color>
+    <color name="warning">#EC585F</color>
 </resources>
