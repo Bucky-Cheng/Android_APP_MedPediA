@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<androidx.drawerlayout.widget.DrawerLayout
+
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -9,7 +13,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        >
         <include
             layout="@layout/toolbar"
             android:layout_width="match_parent"
@@ -19,21 +24,28 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent"
+            >
+
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_above="@+id/tabLayout"
+            android:background="@color/grey_300">
+
         </androidx.viewpager.widget.ViewPager>
+
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="?actionBarSize"
-            app:tabGravity="fill"
+
             android:layout_alignParentBottom="true"
+
 
             app:tabBackground="@color/tab"
             app:tabMode="fixed">
@@ -60,3 +72,5 @@
         app:menu="@menu/drawer_view"
         app:headerLayout="@layout/nav_header"/>
 </androidx.drawerlayout.widget.DrawerLayout>
+
+</RelativeLayout>

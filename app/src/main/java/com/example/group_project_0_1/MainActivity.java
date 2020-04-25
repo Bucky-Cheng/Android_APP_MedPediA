@@ -1,22 +1,33 @@
 package com.example.group_project_0_1;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
+import androidx.annotation.CallSuper;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.FragmentTabHost;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.group_project_0_1.Adapter.MainFragmentAdapter;
+import com.example.group_project_0_1.Fragment.ExploreF;
+import com.example.group_project_0_1.Fragment.SeeDrF;
+import com.example.group_project_0_1.Service.VerifyProfile;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import java.util.concurrent.BrokenBarrierException;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -112,13 +123,19 @@ public class MainActivity extends AppCompatActivity {
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        selectDrawerItem(menuItem);
+                        try {
+                            selectDrawerItem(menuItem);
+                        } catch (BrokenBarrierException e) {
+                            e.printStackTrace();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                         return true;
                     }
                 });
     }
 
-    public void selectDrawerItem(MenuItem menuItem) {
+    public void selectDrawerItem(MenuItem menuItem) throws BrokenBarrierException, InterruptedException {
 
         Intent intent=null;
         Class fragmentClass;
@@ -127,10 +144,16 @@ public class MainActivity extends AppCompatActivity {
                 intent=new Intent(this, Login.class);
                 break;
             case R.id.chatting:
-                if(FirebaseAuth.getInstance().getCurrentUser()==null){
-                    intent=new Intent(this, Login.class);
+                FirebaseUser firebaseUser=FirebaseAuth.getInstance().getCurrentUser();
+                if(firebaseUser==null){
+                    intent = new Intent(this, Login.class);
                 }else {
-                    intent = new Intent(this, Chatting.class);
+                    VerifyProfile verifyProfile=new VerifyProfile();
+                    if(!verifyProfile.Verified(firebaseUser.getUid())) {
+                        intent = new Intent(this, Login.class);
+                    }else {
+                        intent = new Intent(this, Chatting.class);
+                    }
                 }
                 break;
             case R.id.setting:
@@ -171,5 +194,39 @@ public class MainActivity extends AppCompatActivity {
         tab.setCustomView(mainFragmentAdapter.getSelectedTabView(position));
     }
 
+
+    //hide keyboard
+
+    @CallSuper
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (ev.getAction() ==  MotionEvent.ACTION_DOWN ) {
+            View view = getCurrentFocus();
+            if (isShouldHideKeyBord(view, ev)) {
+                hideSoftInput(view.getWindowToken());
+            }
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+
+    protected boolean isShouldHideKeyBord(View v, MotionEvent ev) {
+        if (v != null && (v instanceof EditText)) {
+            int[] l = {0, 0};
+            v.getLocationInWindow(l);
+            int left = l[0], top = l[1], bottom = top + v.getHeight(), right = left + v.getWidth();
+            return !(ev.getX() > left && ev.getX() < right && ev.getY() > top && ev.getY() < bottom);
+            //return !(ev.getY() > top && ev.getY() < bottom);
+        }
+        return false;
+    }
+
+
+    private void hideSoftInput(IBinder token) {
+        if (token != null) {
+            InputMethodManager manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            manager.hideSoftInputFromWindow(token, InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
 
 }

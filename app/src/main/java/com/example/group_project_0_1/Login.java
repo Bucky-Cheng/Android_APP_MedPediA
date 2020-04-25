@@ -125,6 +125,7 @@ public class Login extends ProgressActivity implements View.OnClickListener {
                             Toast.LENGTH_SHORT).show();
                     mDrIDField.setVisibility(View.VISIBLE);
                     mDrProField.setVisibility(View.VISIBLE);
+                    findViewById(R.id.spinner_name).setVisibility(View.VISIBLE);
                     HKDRFlag=true;
                 } else {
                     mDrIDField.setVisibility(View.GONE);
@@ -141,7 +142,13 @@ public class Login extends ProgressActivity implements View.OnClickListener {
         // Check if user is signed in (non-null) and update UI accordingly.
         //mAuth.getCurrentUser().reload();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
+        try {
+            updateUI(currentUser);
+        } catch (BrokenBarrierException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
     // [END on_start_check_user]
 
@@ -162,13 +169,25 @@ public class Login extends ProgressActivity implements View.OnClickListener {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
+                            try {
+                                updateUI(user);
+                            } catch (BrokenBarrierException e) {
+                                e.printStackTrace();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
                             Toast.makeText(Login.this, "電子邮箱無效",
                                     Toast.LENGTH_SHORT).show();
-                            updateUI(null);
+                            try {
+                                updateUI(null);
+                            } catch (BrokenBarrierException e) {
+                                e.printStackTrace();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
                         }
 
                         // [START_EXCLUDE]
@@ -196,13 +215,25 @@ public class Login extends ProgressActivity implements View.OnClickListener {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
+                            try {
+                                updateUI(user);
+                            } catch (BrokenBarrierException e) {
+                                e.printStackTrace();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(Login.this, "信息驗証失敗",
                                     Toast.LENGTH_SHORT).show();
-                            updateUI(null);
+                            try {
+                                updateUI(null);
+                            } catch (BrokenBarrierException e) {
+                                e.printStackTrace();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
                             // [START_EXCLUDE]
                             //checkForMultiFactorFailure(task.getException());
                             // [END_EXCLUDE]
@@ -219,7 +250,7 @@ public class Login extends ProgressActivity implements View.OnClickListener {
         // [END sign_in_with_email]
     }
 
-    private void signOut() {
+    private void signOut() throws BrokenBarrierException, InterruptedException {
         mAuth.signOut();
         updateUI(null);
     }
@@ -289,6 +320,8 @@ public class Login extends ProgressActivity implements View.OnClickListener {
         }
         FirebaseUser user=mAuth.getCurrentUser();
         String userid=user.getUid();
+
+
         reference= FirebaseDatabase.getInstance().getReference("Users").child(userid);
 
         HashMap<String,String> hashMap=new HashMap<>();
@@ -325,7 +358,13 @@ public class Login extends ProgressActivity implements View.OnClickListener {
                                 "請閣下驗証電子邮箱",
                                 Toast.LENGTH_SHORT).show();
                     }
-                    updateUI(mAuth.getCurrentUser());
+                    try {
+                        updateUI(mAuth.getCurrentUser());
+                    } catch (BrokenBarrierException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
 
                 } else {
                     Log.e(TAG, "reload", task.getException());
@@ -385,7 +424,7 @@ public class Login extends ProgressActivity implements View.OnClickListener {
         return valid;
     }
 
-    private void updateUI(FirebaseUser user) {
+    private void updateUI(FirebaseUser user) throws BrokenBarrierException, InterruptedException {
         hideProgressBar();
         if (user != null) {
             mStatusTextView.setText(getString(R.string.emailpassword_status_fmt,
@@ -397,15 +436,22 @@ public class Login extends ProgressActivity implements View.OnClickListener {
             findViewById(R.id.signedInButtons).setVisibility(View.VISIBLE);
             findViewById(R.id.forgetPassword).setVisibility(View.GONE);
             if (user.isEmailVerified()) {
-                mUserNameField.setVisibility(View.VISIBLE);
-                userProfile.setVisibility(View.VISIBLE);
-                findViewById(R.id.verifyProfileButton).setVisibility(View.VISIBLE);
-                findViewById(R.id.verifyEmailButton).setVisibility(View.GONE);
-                findViewById(R.id.reloadButton).setVisibility(View.GONE);
-                //findViewById(R.id.signOutButton).setVisibility(View.VISIBLE);
+                VerifyProfile verifyProfile=new VerifyProfile();
+                if(verifyProfile.Verified(user.getUid())){
+                    finishUI();
+                }else {
+                    mUserNameField.setVisibility(View.VISIBLE);
+                    userProfile.setVisibility(View.VISIBLE);
+                    findViewById(R.id.verifyProfileButton).setVisibility(View.VISIBLE);
+                    findViewById(R.id.verifyEmailButton).setVisibility(View.GONE);
+                    findViewById(R.id.reloadButton).setVisibility(View.GONE);
+                    //findViewById(R.id.signOutButton).setVisibility(View.VISIBLE);
+                }
             } else {
                 findViewById(R.id.signOutButton).setVisibility(View.GONE);
                 findViewById(R.id.verifyEmailButton).setVisibility(View.VISIBLE);
+                findViewById(R.id.verifyProfileButton).setVisibility(View.GONE);
+                findViewById(R.id.reloadButton).setVisibility(View.VISIBLE);
             }
         } else {
             mStatusTextView.setText("當前狀態：未登入");
@@ -429,6 +475,12 @@ public class Login extends ProgressActivity implements View.OnClickListener {
         findViewById(R.id.signOutButton).setVisibility(View.VISIBLE);
         findViewById(R.id.forgetPassword).setVisibility(View.GONE);
         findViewById(R.id.verifyEmailButton).setVisibility(View.GONE);
+        findViewById(R.id.fieldName).setVisibility(View.GONE);
+        findViewById(R.id.radiogroup).setVisibility(View.GONE);
+        findViewById(R.id.fieldDrID).setVisibility(View.GONE);
+        findViewById(R.id.fieldDrPro).setVisibility(View.GONE);
+        findViewById(R.id.spinner_name).setVisibility(View.GONE);
+        findViewById(R.id.reloadButton).setVisibility(View.GONE);
         mUserNameField.setVisibility(View.GONE);
         userProfile.setVisibility(View.GONE);
         findViewById(R.id.verifyProfileButton).setVisibility(View.GONE);
@@ -442,6 +494,30 @@ public class Login extends ProgressActivity implements View.OnClickListener {
 
         if(verifyProfile.VerifyDrID(Drid,illPro)){
             if(verifyProfile.VerifyDr(uid,DrName,Drid,illPro)){
+
+                //ADD DR in Firebase
+                FirebaseUser user=mAuth.getCurrentUser();
+                String userid=user.getUid();
+                reference= FirebaseDatabase.getInstance().getReference("Doctors").child(userid);
+
+                HashMap<String,String> hashMap=new HashMap<>();
+                hashMap.put("id",userid);
+                hashMap.put("username",mUserNameField.getText().toString());
+                hashMap.put("pro",illPro);
+                hashMap.put("intro","this my introduction");
+                hashMap.put("search",mUserNameField.getText().toString().toLowerCase());
+
+                reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            Log.d(TAG, "Store_Success.");
+
+                        }
+                    }
+                });
+
+
                 return true;
             }else{
                 STATUS_CODE=400;
@@ -473,7 +549,13 @@ public class Login extends ProgressActivity implements View.OnClickListener {
         } else if (i == R.id.emailSignInButton) {
             signIn(mEmailField.getText().toString(), mPasswordField.getText().toString());
         } else if (i == R.id.signOutButton) {
-            signOut();
+            try {
+                signOut();
+            } catch (BrokenBarrierException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         } else if (i == R.id.verifyEmailButton) {
             sendEmailVerification();
         } else if (i == R.id.reloadButton) {

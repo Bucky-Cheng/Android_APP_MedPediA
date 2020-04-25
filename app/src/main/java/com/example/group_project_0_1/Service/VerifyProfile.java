@@ -46,8 +46,8 @@ public class VerifyProfile {
             int flag=0;
             for(int i=0;i<jsonList.size();i++){
                 try {
-                    flag=jsonList.get(i).getInt("flag");
-                    drFlag=jsonList.get(i).getInt("id");
+                    flag=Integer.parseInt(jsonList.get(i).getString("flag"));
+                    drFlag=Integer.parseInt(jsonList.get(i).getString("id"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -74,11 +74,29 @@ public class VerifyProfile {
             return false;
         }else {
             VerifyDrID(DrID,Pro);
+            System.out.println("DRFLAG:"+drFlag);
             String SQLU=new SQLDao().upDateDrId(drFlag);
             ConnectServer connectServer1=new ConnectServer();
             ArrayList addList1=connectServer1.connection(SQLU);
             return true;
         }
+    }
+
+    public Boolean Verified (String uid) throws BrokenBarrierException, InterruptedException {
+
+        String SQLill=new SQLDao().VerifiedIllness(uid);
+        String SQLdr=new SQLDao().VerifiedDr(uid);
+
+        ConnectServer connectServer = new ConnectServer();
+        ArrayList<JSONObject> jsonListill= connectServer.connection(SQLill);
+        ArrayList<JSONObject> jsonListdr= connectServer.connection(SQLdr);
+
+        if(jsonListill.size()<=0 && jsonListdr.size()<=0){
+            return false;
+        }else{
+            return true;
+        }
+
     }
 
 }

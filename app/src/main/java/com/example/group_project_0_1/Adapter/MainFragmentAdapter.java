@@ -13,11 +13,7 @@ import androidx.fragment.app.FragmentManager;
 
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.example.group_project_0_1.ExploreF;
-import com.example.group_project_0_1.HistoryF;
 import com.example.group_project_0_1.R;
-import com.example.group_project_0_1.SeeDrF;
-import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
