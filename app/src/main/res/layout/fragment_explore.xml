@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="搜尋..."
-            android:id="@+id/search_users"
+            android:id="@+id/search"
             android:background="#ffffff"
             android:padding="15dp"
             android:layout_marginTop="10dp"

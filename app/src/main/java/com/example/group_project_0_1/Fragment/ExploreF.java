@@ -2,18 +2,22 @@ package com.example.group_project_0_1.Fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.example.group_project_0_1.R;
+import com.example.group_project_0_1.SearchActivity;
 import com.example.group_project_0_1.Service.GetAPI;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.Chart;
@@ -50,7 +54,7 @@ public class ExploreF extends Fragment {
     LineChart lineChart;
     BarChart barChart;
     PieChart pieChart;
-
+    EditText editText;
 
 
 
@@ -66,13 +70,21 @@ public class ExploreF extends Fragment {
         lineChart=view.findViewById(R.id.chart1);
         barChart=view.findViewById(R.id.chart2);
         pieChart=view.findViewById(R.id.chart3);
-
+        editText=view.findViewById(R.id.search);
 
         mytask my=new mytask();
         my.execute();
 
 
+        editText.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+
+                Intent intent=new Intent(getActivity(), SearchActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
 

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragment.UsersFragment"
+    android:background="@color/grey_100">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="搜尋..."
+        android:id="@+id/search"
+        android:background="#ffffff"
+        android:padding="15dp"
+        android:textCursorDrawable="@color/black"></EditText>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@+id/search"
+        android:id="@+id/recycler_view"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="70dp"></androidx.recyclerview.widget.RecyclerView>
+
+</RelativeLayout>
