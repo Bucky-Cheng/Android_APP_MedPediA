@@ -46,4 +46,9 @@ public class SQLDao {
         String SQL="SELECT * FROM dr WHERE userid='"+uid+"';";
         return SQL;
     }
+
+    public String findItems(){
+        String SQL="SELECT * FROM indexA";
+        return SQL;
+    }
 }
