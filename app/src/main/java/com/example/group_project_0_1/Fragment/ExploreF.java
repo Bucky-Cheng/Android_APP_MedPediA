@@ -14,6 +14,7 @@ import androidx.fragment.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -78,6 +79,15 @@ public class ExploreF extends Fragment {
         my.execute();
 
 
+        editText.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Intent intent=new Intent(getActivity(), SearchActivity.class);
+                startActivity(intent);
+                return false;
+            }
+        });
+
         editText.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -88,23 +98,7 @@ public class ExploreF extends Fragment {
             }
         });
 
-        editText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                Intent intent=new Intent(getActivity(), SearchActivity.class);
-                startActivity(intent);
-            }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
 
 
 
