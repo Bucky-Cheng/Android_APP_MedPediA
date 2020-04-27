@@ -51,4 +51,9 @@ public class SQLDao {
         String SQL="SELECT * FROM indexA";
         return SQL;
     }
+
+    public String findContent(String table,String t_id){
+        String SQL="SELECT * FROM "+table+" WHERE id='"+t_id+"';";
+        return SQL;
+    }
 }
