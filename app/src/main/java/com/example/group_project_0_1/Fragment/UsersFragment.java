@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.example.group_project_0_1.Adapter.UserAdapter;
+import com.example.group_project_0_1.Model.Follows;
 import com.example.group_project_0_1.Model.chatUser;
 import com.example.group_project_0_1.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -70,7 +71,32 @@ public class UsersFragment extends Fragment {
         return view;
     }
 
+    private ArrayList<Follows> getTalker(){
+
+        ArrayList<Follows> arrayList=new ArrayList<>();
+        FirebaseUser firebaseUser=FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference reference=FirebaseDatabase.getInstance().getReference(firebaseUser.getUid());
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    arrayList.add(snapshot.getValue(Follows.class));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        return arrayList;
+
+    }
+
     private void readUsers(){
+        ArrayList<Follows> arrayList=getTalker();
         final FirebaseUser firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference reference= FirebaseDatabase.getInstance().getReference("Users");
         reference.addValueEventListener(new ValueEventListener() {
@@ -86,7 +112,12 @@ public class UsersFragment extends Fragment {
 
                         if (!user.getId().equals(firebaseUser.getUid())) {
                             System.out.println("USERLIST+" + user.getId());
-                            mUsers.add(user);
+                            for(int i=0;i<arrayList.size();i++){
+                                if(user.getId().equals(arrayList.get(i).getTid())){
+                                    mUsers.add(user);
+                                }
+                            }
+
                         }
 
                     }
@@ -103,7 +134,7 @@ public class UsersFragment extends Fragment {
     }
 
     public void searchUser(final String username){
-
+        ArrayList<Follows> arrayList=getTalker();
         final FirebaseUser firebaseUser=FirebaseAuth.getInstance().getCurrentUser();
         Query query=FirebaseDatabase.getInstance().getReference("Users").orderByChild("search");
 
@@ -117,8 +148,16 @@ public class UsersFragment extends Fragment {
 
                     if(!user.getId().equals(firebaseUser.getUid())){
                         if(user.getSearch().contains(username)) {
+                            for(int i=0;i<arrayList.size();i++){
 
-                            mUsers.add(user);
+                                if(user.getId().equals(arrayList.get(i).getTid())){
+                                    mUsers.add(user);
+                                }
+                            }
+
+
+
+
                         }
                     }
 

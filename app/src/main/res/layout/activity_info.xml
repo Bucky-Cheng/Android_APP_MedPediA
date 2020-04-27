@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
 
             android:text="本頁醫療相關內容僅供參考，詳見"
-            android:textStyle="bold"
+
             android:textSize="9sp"
             android:textColor="@color/black"
 
@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/med_noti"
                 android:text="醫學聲明"
-                android:textStyle="bold"
+
                 android:textSize="9sp"
                 android:textColor="@color/historyA"
                 ></TextView>
@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
 
                 android:text="。閣下如需醫療服務或意見，請諮詢專業人士。"
-                android:textStyle="bold"
+
                 android:textSize="9sp"
                 android:textColor="@color/black"></TextView>
 
@@ -136,7 +136,7 @@
             android:text="乙醯胺酚（英語：Acetaminophen），又稱乙醯胺酚、必理痛、撲熱息痛（Paracetamol），簡稱APAP。是一種廣泛使用的非處方止痛及退燒藥。可用於緩解輕度至中度的疼痛，本品對於孩童的退燒效果仍未有決定性結論。本品常與多種感冒藥合併使用。也可與鴉片類藥物合用以緩解重度疼痛、腫瘤痛，或術後疼痛。本品可經口服、肛門，或靜脈注射給藥。效用可維持2至4小時。"
             android:textColor="@color/black"
             android:textSize="15sp"
-            android:letterSpacing="1.5"
+            android:letterSpacing="0.5"
             android:layout_marginTop="5dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="8dp"
@@ -204,7 +204,7 @@
                 android:text="乙醯胺酚用於全年齡人群的退燒\乙醯胺酚可以用來緩解疼痛"
                 android:textColor="@color/black"
                 android:textSize="15sp"
-
+                android:letterSpacing="0.5"
                 android:layout_marginTop="5dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginLeft="8dp"
@@ -273,7 +273,7 @@
                 android:text="普遍認為正常劑量服用乙醯胺酚非常安全，無論對於幼兒還是成人。但是長期、過量服用乙醯胺酚可能造成不良後果。\服用超過7.5 g/日或150 mg/kg(體重)可能導致肝臟損害。患有肝臟疾病的患者服用乙醯胺酚應諮詢醫師。身體健康者服藥期間也應避免飲酒。\有證據顯示乙醯胺酚可能存在輕微的腎毒性，長期大劑量服用可能導致腎臟損害，故建議腎病患者服用含乙醯胺酚的藥品應格外注意。"
                 android:textColor="@color/black"
                 android:textSize="15sp"
-
+                android:letterSpacing="0.5"
                 android:layout_marginTop="5dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginLeft="8dp"
@@ -342,7 +342,7 @@
                 android:text="普遍認為正常劑量服用乙醯胺酚非常安全，無論對於幼兒還是成人。但是長期、過量服用乙醯胺酚可能造成不良後果。\服用超過7.5 g/日或150 mg/kg(體重)可能導致肝臟損害。患有肝臟疾病的患者服用乙醯胺酚應諮詢醫師。身體健康者服藥期間也應避免飲酒。\有證據顯示乙醯胺酚可能存在輕微的腎毒性，長期大劑量服用可能導致腎臟損害，故建議腎病患者服用含乙醯胺酚的藥品應格外注意。"
                 android:textColor="@color/black"
                 android:textSize="15sp"
-
+                android:letterSpacing="0.5"
                 android:layout_marginTop="5dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginLeft="8dp"
@@ -356,6 +356,32 @@
         </LinearLayout>
 
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/notia"
+            android:layout_marginTop="20dp"></ImageView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="資料來源：Drugs.com , Wikipedia , DATA.GOV.HK"
+            android:layout_gravity="center_horizontal"
+            android:textSize="9.5sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp"></TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="MedPediA不會對閣下使用本應用程式內資源的後果負責"
+            android:layout_gravity="center_horizontal"
+            android:textSize="9.5sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"></TextView>
 
     </LinearLayout>
 

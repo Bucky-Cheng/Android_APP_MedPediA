@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -30,11 +31,14 @@ public class InfoActivity extends AppCompatActivity {
     String table;
     String t_id;
 
+    Boolean flag=true;
+
     LinearLayout firstLayout;
     LinearLayout secondLayout;
     LinearLayout thirdLayout;
     LinearLayout fourthLayout;
 
+    TextView title;
     TextView first;
     TextView first_content;
     TextView second;
@@ -66,6 +70,7 @@ public class InfoActivity extends AppCompatActivity {
         t_id=intent.getStringExtra("t_id");
 
 
+
         firstLayout=findViewById(R.id.first_layout);
         secondLayout=findViewById(R.id.second_layout);
         thirdLayout=findViewById(R.id.third_layout);
@@ -75,6 +80,8 @@ public class InfoActivity extends AppCompatActivity {
         secondLayout.setVisibility(View.GONE);
         thirdLayout.setVisibility(View.GONE);
         fourthLayout.setVisibility(View.GONE);
+
+        title=findViewById(R.id.title);
 
         first=findViewById(R.id.first);
         first_content=findViewById(R.id.first_content);
@@ -145,7 +152,7 @@ public class InfoActivity extends AppCompatActivity {
 
         JSONObject object=jsonObjectArrayList.get(0);
 
-
+        title.setText(object.getString("name_zh"));
         first.setText("總覽");
         String Overview=object.getString("overview");
         first_content.setText(Overview);
@@ -153,12 +160,13 @@ public class InfoActivity extends AppCompatActivity {
         String use=object.getString("use");
         second_content.setText(use);
         third.setText("不良反應");
-        String Reactions=object.getString("reactions");
+        String Reactions=object.getString("side_effect");
         third_content.setText(Reactions);
 
         first_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 speak(Overview);
             }
         });
@@ -193,6 +201,7 @@ public class InfoActivity extends AppCompatActivity {
         JSONObject object=jsonObjectArrayList.get(0);
 
 
+        title.setText(object.getString("name_zh"));
         first.setText("病徵");
         String Symptom=object.getString("symptom");
         first_content.setText(Symptom);
@@ -204,7 +213,7 @@ public class InfoActivity extends AppCompatActivity {
         third_content.setText(Treatment);
         fourth.setText("預防");
         String Prevention=object.getString("prevention");
-        third_content.setText(Prevention);
+        fourth_content.setText(Prevention);
 
         first_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -237,6 +246,12 @@ public class InfoActivity extends AppCompatActivity {
     }
 
     private void speak(String content){
-        textToSpeech.speak(content,TextToSpeech.QUEUE_FLUSH,null);
+        if(flag) {
+            textToSpeech.speak(content, TextToSpeech.QUEUE_FLUSH, null);
+            flag=false;
+        }else{
+            textToSpeech.stop();
+            flag=true;
+        }
     }
 }

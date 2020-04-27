@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.group_project_0_1.MessageActivity;
 import com.example.group_project_0_1.Model.Chat;
 import com.example.group_project_0_1.Model.DrProfile;
+import com.example.group_project_0_1.Model.Follows;
 import com.example.group_project_0_1.Model.chatUser;
 import com.example.group_project_0_1.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,6 +27,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 public class DrAdapter extends RecyclerView.Adapter<DrAdapter.ViewHolder>{
@@ -51,11 +58,59 @@ public class DrAdapter extends RecyclerView.Adapter<DrAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull DrAdapter.ViewHolder holder, int position) {
+        final ArrayList flag = new ArrayList();
         final DrProfile dr=mDrs.get(position);
         holder.username.setText(dr.getUsername());
         holder.profile_image.setImageResource(R.drawable.dr);
         holder.dr_intro.setText(dr.getIntro());
         holder.dr_pro.setText(dr.getPro());
+        FirebaseUser firebaseUser=FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference reference1=FirebaseDatabase.getInstance().getReference(firebaseUser.getUid());
+        reference1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    Follows follows=snapshot.getValue(Follows.class);
+                    if(follows.getTid().equals(dr.getId())){
+                        flag.add(dr.getId());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        if (flag.size()>0){
+            holder.follow.setText("追蹤中");
+        }
+
+        holder.follow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+
+
+                if(!holder.follow.getText().equals("追蹤中")) {
+
+
+                    FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+                    HashMap<String, Object> hashMap = new HashMap<>();
+
+                    hashMap.put("tid", dr.getId());
+
+                    reference.child(firebaseUser.getUid()).push().setValue(hashMap);
+                    Toast.makeText(mContext, "己追蹤", Toast.LENGTH_LONG).show();
+                    holder.follow.setText("追蹤中");
+                }
+            }
+        });
+
+
 
 
 
@@ -76,6 +131,7 @@ public class DrAdapter extends RecyclerView.Adapter<DrAdapter.ViewHolder>{
         public ImageView profile_image;
         public TextView dr_pro;
         public TextView dr_intro;
+        public Button follow;
 
 
         public ViewHolder(View itemView){
@@ -85,7 +141,7 @@ public class DrAdapter extends RecyclerView.Adapter<DrAdapter.ViewHolder>{
             profile_image=itemView.findViewById(R.id.profile_image);
             dr_pro=itemView.findViewById(R.id.dr_pro);
             dr_intro=itemView.findViewById(R.id.dr_intro);
-
+            follow=itemView.findViewById(R.id.follow);
         }
     }
 

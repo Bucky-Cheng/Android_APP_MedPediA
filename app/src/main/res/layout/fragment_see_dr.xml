@@ -7,13 +7,48 @@
     tools:context=".Fragment.UsersFragment"
     android:background="@color/grey_300">
 
+    <TextView
+        android:id="@+id/log"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="閣下若需取得醫師信息或諮詢醫師"
+        android:textColor="@color/black"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"></TextView>
+    <TextView
+        android:id="@+id/login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="請先登入閣下之脹户"
+        android:textColor="@color/black"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/log"
+        android:visibility="gone"></TextView>
+
+    <TextView
+        android:id="@+id/noinfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="尚無信息"
+        android:visibility="gone"
+        android:textColor="@color/black"
+        android:textSize="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"></TextView>
+
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="搜尋..."
         android:id="@+id/search_drs"
         android:background="#ffffff"
-        android:padding="15dp"></EditText>
+        android:padding="15dp"
+        android:layout_below="@+id/login"></EditText>
+
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_below="@+id/search_drs"

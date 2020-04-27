@@ -187,6 +187,7 @@ public class Chatting extends AppCompatActivity {
 
         hashMap.put("status",status);
         reference.updateChildren(hashMap);
+
     }
 
     @Override

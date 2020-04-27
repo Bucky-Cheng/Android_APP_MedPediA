@@ -20,6 +20,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.group_project_0_1.Adapter.MainFragmentAdapter;
 import com.example.group_project_0_1.Fragment.ExploreF;
+import com.example.group_project_0_1.Fragment.HistoryF;
 import com.example.group_project_0_1.Fragment.SeeDrF;
 import com.example.group_project_0_1.Service.VerifyProfile;
 import com.google.android.material.navigation.NavigationView;

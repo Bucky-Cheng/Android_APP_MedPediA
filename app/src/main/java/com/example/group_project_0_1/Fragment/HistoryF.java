@@ -15,16 +15,13 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.EditText;
 
 import com.example.group_project_0_1.Adapter.DrAdapter;
-import com.example.group_project_0_1.Adapter.UserAdapter;
-import com.example.group_project_0_1.Chatting;
+import com.example.group_project_0_1.Adapter.HisAdapter;
 import com.example.group_project_0_1.Login;
-import com.example.group_project_0_1.Model.Dr;
 import com.example.group_project_0_1.Model.DrProfile;
-import com.example.group_project_0_1.Model.chatUser;
+import com.example.group_project_0_1.Model.History;
 import com.example.group_project_0_1.R;
 import com.example.group_project_0_1.Service.VerifyProfile;
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,25 +38,24 @@ import java.util.List;
 import java.util.concurrent.BrokenBarrierException;
 
 
-public class SeeDrF extends Fragment {
-
+public class HistoryF extends Fragment {
 
     private RecyclerView recyclerView;
-    private DrAdapter drAdapter;
-    private List<DrProfile> mDrs;
-    private EditText search_drs;
+    private HisAdapter hisAdapter;
+    private List<History> mHis;
+    private EditText search_his;
     private Intent intent;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view=inflater.inflate(R.layout.fragment_see_dr,container,false);
+        View view=inflater.inflate(R.layout.fragment_history,container,false);
 
         recyclerView=view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mDrs=new ArrayList<>();
+        mHis=new ArrayList<>();
         view.findViewById(R.id.login).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,12 +64,12 @@ public class SeeDrF extends Fragment {
             }
         });
 
-        FirebaseUser firebaseUser=FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseUser firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
         if(firebaseUser==null){
             view.findViewById(R.id.log).setVisibility(View.VISIBLE);
             view.findViewById(R.id.login).setVisibility(View.VISIBLE);
             view.findViewById(R.id.noinfo).setVisibility(View.VISIBLE);
-            view.findViewById(R.id.search_drs).setVisibility(View.GONE);
+            view.findViewById(R.id.search_his).setVisibility(View.GONE);
             view.findViewById(R.id.recycler_view).setVisibility(View.GONE);
 
         }else {
@@ -83,7 +79,7 @@ public class SeeDrF extends Fragment {
                     view.findViewById(R.id.log).setVisibility(View.VISIBLE);
                     view.findViewById(R.id.login).setVisibility(View.VISIBLE);
                     view.findViewById(R.id.noinfo).setVisibility(View.VISIBLE);
-                    view.findViewById(R.id.search_drs).setVisibility(View.GONE);
+                    view.findViewById(R.id.search_his).setVisibility(View.GONE);
                     view.findViewById(R.id.recycler_view).setVisibility(View.GONE);
 
                 } else {
@@ -91,13 +87,13 @@ public class SeeDrF extends Fragment {
                     view.findViewById(R.id.log).setVisibility(View.GONE);
                     view.findViewById(R.id.login).setVisibility(View.GONE);
                     view.findViewById(R.id.noinfo).setVisibility(View.GONE);
-                    view.findViewById(R.id.search_drs).setVisibility(View.VISIBLE);
+                    view.findViewById(R.id.search_his).setVisibility(View.VISIBLE);
                     view.findViewById(R.id.recycler_view).setVisibility(View.VISIBLE);
 
 
-                    readUsers();
-                    search_drs = view.findViewById(R.id.search_drs);
-                    search_drs.addTextChangedListener(new TextWatcher() {
+                    readHis();
+                    search_his = view.findViewById(R.id.search_his);
+                    search_his.addTextChangedListener(new TextWatcher() {
                         @Override
                         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -106,7 +102,7 @@ public class SeeDrF extends Fragment {
                         @Override
                         public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                            searchUser(s.toString().toLowerCase());
+                            searchHis(s.toString().toLowerCase());
                         }
 
                         @Override
@@ -124,29 +120,30 @@ public class SeeDrF extends Fragment {
         return view;
     }
 
-    private void readUsers(){
+
+    private void readHis(){
         final FirebaseUser firebaseUsera= FirebaseAuth.getInstance().getCurrentUser();
         if(firebaseUsera!=null) {
-            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Doctors");
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Histories");
             reference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (search_drs.getText().toString().equals("")) {
-                        mDrs.clear();
+                    if (search_his.getText().toString().equals("")) {
+                        mHis.clear();
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            DrProfile dr = snapshot.getValue(DrProfile.class);
+                            History his = snapshot.getValue(History.class);
 
-                            assert dr != null;
+                            assert his != null;
 
                             System.out.println("UID:"+firebaseUsera.getUid());
-                            if (!dr.getId().equals(firebaseUsera.getUid())) {
-                                System.out.println("DRLIST+" + dr.getId());
-                                mDrs.add(dr);
+                            if (his.getUid().equals(firebaseUsera.getUid())) {
+                                System.out.println("DRLIST+" + his.getUid());
+                                mHis.add(his);
                             }
 
                         }
-                        drAdapter = new DrAdapter(getContext(), mDrs);
-                        recyclerView.setAdapter(drAdapter);
+                        hisAdapter = new HisAdapter(getContext(), mHis);
+                        recyclerView.setAdapter(hisAdapter);
                     }
                 }
 
@@ -159,29 +156,29 @@ public class SeeDrF extends Fragment {
         }
     }
 
-    public void searchUser(final String username){
+    public void searchHis(final String hisname){
 
         final FirebaseUser firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
-        Query query= FirebaseDatabase.getInstance().getReference("Doctors").orderByChild("search");
+        Query query= FirebaseDatabase.getInstance().getReference("Histories").orderByChild("search");
 
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                mDrs.clear();
+                mHis.clear();
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()){
-                    DrProfile dr=snapshot.getValue(DrProfile.class);
+                    History his=snapshot.getValue(History.class);
 
-                    if(!dr.getId().equals(firebaseUser.getUid())){
-                        if(dr.getSearch().contains(username)) {
+                    if(his.getUid().equals(firebaseUser.getUid())){
+                        if(his.getSearch().contains(hisname)) {
 
-                            mDrs.add(dr);
+                            mHis.add(his);
                         }
                     }
 
                 }
-                drAdapter=new DrAdapter(getContext(),mDrs);
-                recyclerView.setAdapter(drAdapter);
+                hisAdapter=new HisAdapter(getContext(),mHis);
+                recyclerView.setAdapter(hisAdapter);
             }
 
             @Override

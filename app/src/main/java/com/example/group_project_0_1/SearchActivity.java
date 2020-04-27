@@ -63,7 +63,7 @@ public class SearchActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 try {
                     System.out.println("CLICK");
-                    searchItem(s.toString().toLowerCase());
+                    searchItem(s.toString());
                 } catch (BrokenBarrierException e) {
                     e.printStackTrace();
                 } catch (InterruptedException e) {
@@ -87,7 +87,7 @@ public class SearchActivity extends AppCompatActivity {
         String SQL=new SQLDao().findItems();
         ArrayList<JSONObject> jsonArray=new ConnectServer().connection(SQL);
         mItems.clear();
-        if(toLowerCase.equals("")&&toLowerCase.length()<=0){
+        if(toLowerCase.toLowerCase().equals("")&&toLowerCase.length()<=0){
                 System.out.println("NULL");
         }else {
             for (int i = 0; i < jsonArray.size(); i++) {
@@ -97,9 +97,9 @@ public class SearchActivity extends AppCompatActivity {
                 String name_en = jsonObject.getString("name_en");
                 String table = jsonObject.getString("table");
                 String t_id = jsonObject.getString("t_id");
-                if (name_zh.contains(toLowerCase)) {
+                if (name_zh.contains(toLowerCase.toLowerCase())) {
                     mItems.add(new seaItem(0, name_zh, "", table, t_id));
-                } else if (name_en.toLowerCase().contains(toLowerCase)) {
+                } else if (name_en.toLowerCase().contains(toLowerCase.toLowerCase())) {
                     mItems.add(new seaItem(0, "", name_en, table, t_id));
 
                 }
