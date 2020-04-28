@@ -139,7 +139,7 @@ public class SeeDrF extends Fragment {
                             assert dr != null;
 
                             System.out.println("UID:"+firebaseUsera.getUid());
-                            if (!dr.getId().equals(firebaseUsera.getUid())) {
+                            if (!(dr.getId().equals(firebaseUsera.getUid()))) {
                                 System.out.println("DRLIST+" + dr.getId());
                                 mDrs.add(dr);
                             }

@@ -6,15 +6,17 @@ public class chatUser {
     private String id;
     private String status;
     private String search;
+    private String imageUri;
 
     public chatUser(){
 
     }
-    public  chatUser(String id, String username, String status, String search){
+    public  chatUser(String id, String username, String status, String search,String imageUri){
         this.id=id;
         this.username=username;
         this.status=status;
         this.search=search;
+        this.imageUri=imageUri;
     }
 
     public String getUsername() {
@@ -47,5 +49,13 @@ public class chatUser {
 
     public void setSearch(String search) {
         this.search = search;
+    }
+
+    public String getImageUri() {
+        return imageUri;
+    }
+
+    public void setImageUri(String imageUri) {
+        this.imageUri = imageUri;
     }
 }

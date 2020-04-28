@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.group_project_0_1.MessageActivity;
 import com.example.group_project_0_1.Model.Chat;
 import com.example.group_project_0_1.Model.chatUser;
@@ -35,9 +36,10 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
 
 
-    public MessageAdapter(Context context, List<Chat> mChat){
+    public MessageAdapter(Context context, List<Chat> mChat, String Uri){
         this.mContext=context;
         this.mChat=mChat;
+        this.imageUrl=Uri;
     }
 
     @NonNull
@@ -58,7 +60,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
         Chat chat=mChat.get(position);
         holder.show_message.setText(chat.getMessage());
-        holder.profile_image.setImageResource(R.mipmap.ic_icon);
+
+        if(imageUrl.equals("default")) {
+            holder.profile_image.setImageResource(R.mipmap.ic_icon);
+        }else{
+            Glide.with(mContext).load(imageUrl).into(holder.profile_image);
+        }
+
 
         if(position==mChat.size()-1){
 

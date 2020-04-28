@@ -39,7 +39,7 @@ public class ConnectServer {
                 String message = SQL;
                 try {
                     //generate socket
-                    socket = new Socket("ec2-3-82-213-101.compute-1.amazonaws.com", 8080);//ip，port
+                    socket = new Socket("ec2-52-91-164-240.compute-1.amazonaws.com", 8080);//ip，port
                     //send message to server
                     PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true);
                     out.println(message);

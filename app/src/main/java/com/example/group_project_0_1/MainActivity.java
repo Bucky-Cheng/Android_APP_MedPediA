@@ -158,7 +158,17 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
             case R.id.setting:
-                intent=new Intent(this,Setting.class);
+                FirebaseUser firebaseUser1=FirebaseAuth.getInstance().getCurrentUser();
+                if(firebaseUser1==null){
+                    intent = new Intent(this, Login.class);
+                }else {
+                    VerifyProfile verifyProfile=new VerifyProfile();
+                    if(!verifyProfile.Verified(firebaseUser1.getUid())) {
+                        intent = new Intent(this, Login.class);
+                    }else {
+                        intent = new Intent(this, profileActivity.class);
+                    }
+                }
                 break;
             case R.id.about:
                 intent=new Intent(this,About.class);

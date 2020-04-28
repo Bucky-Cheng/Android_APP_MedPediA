@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.group_project_0_1.MessageActivity;
 import com.example.group_project_0_1.Model.Chat;
 import com.example.group_project_0_1.Model.DrProfile;
@@ -60,13 +61,45 @@ public class DrAdapter extends RecyclerView.Adapter<DrAdapter.ViewHolder>{
     public void onBindViewHolder(@NonNull DrAdapter.ViewHolder holder, int position) {
         final ArrayList flag = new ArrayList();
         final DrProfile dr=mDrs.get(position);
+
         holder.username.setText(dr.getUsername());
-        holder.profile_image.setImageResource(R.drawable.dr);
+        FirebaseUser firebaseUser=FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference reference1=FirebaseDatabase.getInstance().getReference("Users");
+        reference1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String img="";
+
+                System.out.println("AAAAAAAA");
+                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    chatUser userdr=snapshot.getValue(chatUser.class);
+                    if(userdr.getId().equals(dr.getId())){
+                        img=userdr.getImageUri();
+                        break;
+                    }
+                }
+                if(img.equals("default")) {
+                    holder.profile_image.setImageResource(R.drawable.dr);
+                }else{
+                    Glide.with(mContext).load(img).into(holder.profile_image);
+                }
+
+                img="";
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
         holder.dr_intro.setText(dr.getIntro());
         holder.dr_pro.setText(dr.getPro());
-        FirebaseUser firebaseUser=FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference reference1=FirebaseDatabase.getInstance().getReference(firebaseUser.getUid());
-        reference1.addValueEventListener(new ValueEventListener() {
+
+        DatabaseReference reference2=FirebaseDatabase.getInstance().getReference(firebaseUser.getUid());
+        reference2.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()){
@@ -146,7 +179,36 @@ public class DrAdapter extends RecyclerView.Adapter<DrAdapter.ViewHolder>{
     }
 
 
+    private String setImg(DrProfile dr){
+        System.out.println("DRLISTAAAA    "+dr.getId());
+        final ArrayList<chatUser> chatUserList = new ArrayList<>();
+        FirebaseUser firebaseUser=FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference referenceDr=FirebaseDatabase.getInstance().getReference("Users");
+        System.out.println("DRLISTBBB    "+referenceDr);
 
+
+
+        referenceDr.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                System.out.println("DRLISTBBB    "+dr.getId());
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    chatUser chatUser1 = snapshot.getValue(chatUser.class);
+
+                    if(chatUser1.getId().equals(dr.getId())) {
+
+                        chatUserList.add(chatUser1);
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        System.out.println("DRLISTAAAA"+chatUserList.get(0).getId());
+        return chatUserList.get(0).getImageUri();
+    }
 
 
 }

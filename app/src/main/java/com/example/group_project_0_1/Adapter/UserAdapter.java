@@ -11,10 +11,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.group_project_0_1.MessageActivity;
 import com.example.group_project_0_1.Model.Chat;
 import com.example.group_project_0_1.Model.chatUser;
 import com.example.group_project_0_1.R;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -50,7 +52,12 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final chatUser user=mUsers.get(position);
         holder.username.setText(user.getUsername());
-        holder.profile_image.setImageResource(R.mipmap.ic_icon);
+        if(user.getImageUri().equals("default")) {
+            holder.profile_image.setImageResource(R.mipmap.ic_icon);
+        }else{
+            Glide.with(mContext).load(user.getImageUri()).into(holder.profile_image);
+        }
+
 
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

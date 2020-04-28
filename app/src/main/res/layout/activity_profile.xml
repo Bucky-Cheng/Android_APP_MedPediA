@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.ProfileActivity"
+    tools:context=".profileActivity"
     android:padding="8dp">
 
     <androidx.cardview.widget.CardView
@@ -19,8 +19,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Profile"
+                android:textSize="15dp"
                 android:textColor="@color/black"
-                android:textStyle="bold"></TextView>
+
+
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"></TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="編輯"
+                android:textSize="15dp"
+                android:textColor="@color/black"
+
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="15dp"></TextView>
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="100dp"
@@ -36,10 +51,63 @@
                 android:layout_height="wrap_content"
                 android:text="username"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 android:layout_below="@+id/profile_image"
+                android:layout_marginTop="15dp"
+                android:layout_centerHorizontal="true"></TextView>
+
+            <TextView
+                android:id="@+id/category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="香港居民"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_below="@+id/username"
+                android:layout_marginTop="15dp"
+                android:layout_centerHorizontal="true"></TextView>
+
+            <TextView
+                android:id="@+id/pro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="General Medicine"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_below="@+id/category"
+                android:layout_marginTop="15dp"
+                android:layout_centerHorizontal="true"></TextView>
+
+            <TextView
+                android:id="@+id/introtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/pro"
+                android:text="個人介紹"
+                android:layout_centerHorizontal="true"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
                 android:layout_marginTop="15dp"></TextView>
+
+            <TextView
+                android:id="@+id/intro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="鄭醫生於一九九一獲英國愛丁堡皇家外科醫學院頒授院士資格並先後於一九九三及二零零零年獲香港醫學專科學院頒授矯形外科及社會醫學專科院士資格。二零零二年，高醫生成為英國皇家內科醫學院公共衞生醫學科院士。"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_below="@+id/introtitle"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_centerHorizontal="true"></TextView>
+
+
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 

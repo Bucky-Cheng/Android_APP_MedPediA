@@ -35,6 +35,18 @@
                 android:textColor="#000000"
                 android:textStyle="bold"></TextView>
 
+            <TextView
+                android:id="@+id/follow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:text="追蹤"
+                android:textSize="20dp"
+                android:textColor="#000000"
+                android:visibility="gone"
+                android:layout_gravity="right"></TextView>
+
+
 
         </androidx.appcompat.widget.Toolbar>
 

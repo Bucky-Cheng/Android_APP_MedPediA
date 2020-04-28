@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -15,9 +16,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.group_project_0_1.Adapter.MessageAdapter;
 import com.example.group_project_0_1.Fragment.APIService;
 import com.example.group_project_0_1.Model.Chat;
+import com.example.group_project_0_1.Model.Follows;
 import com.example.group_project_0_1.Model.chatUser;
 import com.example.group_project_0_1.Notifications.Client;
 import com.example.group_project_0_1.Notifications.Data;
@@ -105,9 +108,14 @@ public class MessageActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 chatUser user=dataSnapshot.getValue(chatUser.class);
                 username.setText(user.getUsername());
-                profile_image.setImageResource(R.mipmap.ic_icon);
+                if(user.getImageUri().equals("default")) {
+                   profile_image.setImageResource(R.mipmap.ic_icon);
+                }else{
+                    Glide.with(getApplicationContext()).load(user.getImageUri()).into(profile_image);
+                }
 
-                readMessage(fuser.getUid(),userid);
+
+                readMessage(fuser.getUid(),userid,user.getImageUri());
             }
 
             @Override
@@ -133,6 +141,16 @@ public class MessageActivity extends AppCompatActivity {
 
         seenMessage(userid);
 
+        checkFollow(userid);
+
+
+        TextView button=findViewById(R.id.follow);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                followUser(userid);
+            }
+        });
 
     }
 
@@ -203,7 +221,7 @@ public class MessageActivity extends AppCompatActivity {
         });
     }
 
-    private void readMessage(final String myid, final String userid){
+    private void readMessage(final String myid, final String userid, String imgUri){
         mchat=new ArrayList<>();
 
         reference=FirebaseDatabase.getInstance().getReference("Chats");
@@ -220,7 +238,7 @@ public class MessageActivity extends AppCompatActivity {
                         mchat.add(chat);
                     }
 
-                    messageAdapter=new MessageAdapter(MessageActivity.this,mchat);
+                    messageAdapter=new MessageAdapter(MessageActivity.this,mchat,imgUri);
                     recyclerView.setAdapter(messageAdapter);
                 }
             }
@@ -276,5 +294,51 @@ public class MessageActivity extends AppCompatActivity {
         super.onPause();
         reference.removeEventListener(valueEventListener);
         status("offline");
+    }
+
+
+    private void checkFollow(String userid){
+
+        FirebaseUser firebaseUser=FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference reference=FirebaseDatabase.getInstance().getReference(firebaseUser.getUid());
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                findViewById(R.id.follow).setVisibility(View.VISIBLE);
+                for( DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    Follows follows=snapshot.getValue(Follows.class);
+                    if(follows!=null){
+                        if(follows.getTid().equals(userid)){
+                            findViewById(R.id.follow).setVisibility(View.GONE);
+                            break;
+                        }else{
+
+                        }
+                    }else{
+                        findViewById(R.id.follow).setVisibility(View.GONE);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
+    private void followUser(String userid){
+
+
+        FirebaseUser firebaseUser=FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference reference=FirebaseDatabase.getInstance().getReference();
+
+        HashMap<String,Object> hashMap=new HashMap<>();
+        hashMap.put("tid",userid);
+
+        reference.child(firebaseUser.getUid()).push().setValue(hashMap);
+        Toast.makeText(getApplicationContext(),"追蹤成功！",Toast.LENGTH_LONG).show();
     }
 }

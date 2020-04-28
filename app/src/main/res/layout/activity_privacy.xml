@@ -1,9 +1,371 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Privacy">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    tools:context=".Privacy"
+    android:background="@color/grey_300">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+
+
+            android:layout_marginBottom="10dp"
+
+            android:background="@color/grey_100">
+
+            <ImageView
+                android:layout_width="200sp"
+                android:layout_height="100sp"
+                android:background="@color/grey_100"
+                android:src="@drawable/notia"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="100dp"></ImageView>
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+
+                android:layout_marginLeft="10dp"
+                android:text="聲明與條例"
+                android:textColor="@color/black"
+                android:textSize="40sp"
+                android:textStyle="bold">
+
+            </TextView>
+            <TextView
+                android:id="@+id/version"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:text="v-1.0.1-2020-04-28-HKT"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                >
+
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/first_layout"
+            android:layout_marginBottom="10dp"
+
+
+            android:background="@color/grey_100">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/first"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="一般聲明"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold">
+
+
+                </TextView>
+
+
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@color/grey_300"></View>
+
+            <TextView
+                android:id="@+id/first_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="MedPediA與閣下沒有契約或合約關係。\n\n因為存在聊天功能，但MedPediA不會有任何限制操作。所以，閣下對於侵犯他人的人格權、造成他人不適及所有法律責任須全權負責.
+\n\nMedPediA的數據庫都是儲存在位於美國的伺服器中，因而任何內容都受到當地法律和美國聯邦法律的保護。"
+
+                android:textColor="@color/black"
+                android:textSize="15sp"
+
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="10dp"></TextView>
+
+
+
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/fi_layout"
+            android:layout_marginBottom="10dp"
+
+
+            android:background="@color/grey_100">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/t"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="內容聲明"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold">
+
+
+                </TextView>
+
+
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@color/grey_300"></View>
+
+            <TextView
+                android:id="@+id/s_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="MedPediA為更好的服務於香港，本應用程式中部份內容使用香港民間、論壇用語，部份用語可能造成閣下心理創傷、情緒失控等失常情況，閣下須全權負責。\n\nMedPediA部份醫學內容可能觸發部份人士的創傷後精神緊張性障礙、引發癲癇發作及其他疾病，閣下須全權負責。\n\nMedPediA部份醫學內容中可能含有人體器官之描述，可能會被部份人士認為褻瀆、粗俗或無禮。"
+
+                android:textColor="@color/black"
+                android:textSize="15sp"
+
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="10dp"></TextView>
+
+
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/f_layout"
+            android:layout_marginBottom="10dp"
+
+
+            android:background="@color/grey_100">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/ta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="醫學聲明"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold">
+
+
+                </TextView>
+
+
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@color/grey_300"></View>
+
+            <TextView
+                android:id="@+id/f_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="MedPediA不提供醫學建議，提供之資訊至多是一個中立的概要，它. 不能代替來自專業人員（例如持照醫師、護理人員、藥劑師等）的建議。MedPediA不是醫生。
+	\n\n即使一個關於醫學方面的陳述是「準確的」，它也可能並不適用閣下或閣下的症狀。
+	\n\n若閣下需醫療服務或意見，請諮詢專業人士。"
+
+                android:textColor="@color/black"
+                android:textSize="15sp"
+
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="10dp"></TextView>
+
+
+
+
+
+        </LinearLayout>
+
+
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/p_layout"
+            android:layout_marginBottom="10dp"
+
+
+            android:background="@color/grey_100">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/p"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="私隱權條例"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold">
+
+
+                </TextView>
+
+
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@color/grey_300"></View>
+
+            <TextView
+                android:id="@+id/p_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="MedPediA要求閣下提供的資訊：使用者電子邮箱地址、名稱、密碼、身份、身份証明信息（如適用）。\n\nMedPediA會確保不會向任何公司、機構、個人、政府提供閣下個人信息。\n\n閣下個人信息受到美國聯邦法律的保護。"
+
+                android:textColor="@color/black"
+                android:textSize="15sp"
+
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="10dp"></TextView>
+
+
+
+
+
+        </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="非常感謝閣下閱讀這個頁面，請閣下盡情享受在MedPediA的體驗。"
+            android:layout_gravity="center_horizontal"
+            android:textSize="9.5sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"></TextView>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="20dp"></ImageView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="v1.0.1-2020-04-28-HKT"
+            android:layout_gravity="center_horizontal"
+            android:textSize="9.5sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"></TextView>
+
+
+
+
+
+    </LinearLayout>
+
+
+</ScrollView>

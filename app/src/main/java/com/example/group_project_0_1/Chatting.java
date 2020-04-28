@@ -17,6 +17,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.bumptech.glide.Glide;
 import com.example.group_project_0_1.Fragment.ChatsFragment;
 import com.example.group_project_0_1.Fragment.UsersFragment;
 import com.example.group_project_0_1.Model.chatUser;
@@ -74,7 +75,12 @@ public class Chatting extends AppCompatActivity {
 
                 chatUser chatuser=dataSnapshot.getValue(chatUser.class);
                 username.setText(chatuser.getUsername());
-                image.setImageResource(R.mipmap.ic_icon);
+                if(chatuser.getImageUri().equals("default")) {
+                   image.setImageResource(R.mipmap.ic_icon);
+                }else{
+                    Glide.with(getApplicationContext()).load(chatuser.getImageUri()).into(image);
+                }
+
             }
 
             @Override
