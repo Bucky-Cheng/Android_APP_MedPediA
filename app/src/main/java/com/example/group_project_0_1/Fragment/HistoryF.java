@@ -66,6 +66,7 @@ public class HistoryF extends Fragment {
 
         FirebaseUser firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
         if(firebaseUser==null){
+            System.out.println("BBBBBBBBBBBBB");
             view.findViewById(R.id.log).setVisibility(View.VISIBLE);
             view.findViewById(R.id.login).setVisibility(View.VISIBLE);
             view.findViewById(R.id.noinfo).setVisibility(View.VISIBLE);
@@ -76,6 +77,7 @@ public class HistoryF extends Fragment {
             VerifyProfile verifyProfile = new VerifyProfile();
             try {
                 if (!verifyProfile.Verified(firebaseUser.getUid())) {
+
                     view.findViewById(R.id.log).setVisibility(View.VISIBLE);
                     view.findViewById(R.id.login).setVisibility(View.VISIBLE);
                     view.findViewById(R.id.noinfo).setVisibility(View.VISIBLE);
@@ -83,7 +85,7 @@ public class HistoryF extends Fragment {
                     view.findViewById(R.id.recycler_view).setVisibility(View.GONE);
 
                 } else {
-
+                    System.out.println("HHHHHHHHHH");
                     view.findViewById(R.id.log).setVisibility(View.GONE);
                     view.findViewById(R.id.login).setVisibility(View.GONE);
                     view.findViewById(R.id.noinfo).setVisibility(View.GONE);

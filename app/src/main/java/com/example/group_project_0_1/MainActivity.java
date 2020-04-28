@@ -16,6 +16,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.group_project_0_1.Adapter.MainFragmentAdapter;
@@ -62,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
 
         tabLayout=(TabLayout)findViewById(R.id.tabLayout);
         viewPager=(ViewPager)findViewById(R.id.viewPager);
+
+
 
         mainFragmentAdapter=new MainFragmentAdapter(getSupportFragmentManager(),this);
         mainFragmentAdapter.addFragment(new ExploreF(),"探索",R.drawable.ic_explore_p,R.drawable.ic_explore_a);

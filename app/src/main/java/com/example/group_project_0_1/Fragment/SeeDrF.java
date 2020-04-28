@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.group_project_0_1.Adapter.DrAdapter;
 import com.example.group_project_0_1.Adapter.UserAdapter;
@@ -69,7 +70,9 @@ public class SeeDrF extends Fragment {
         });
 
         FirebaseUser firebaseUser=FirebaseAuth.getInstance().getCurrentUser();
+        System.out.println("FFIIIRREEE++"+firebaseUser.getUid());
         if(firebaseUser==null){
+            System.out.println("BBBBBBBBBBBBB");
             view.findViewById(R.id.log).setVisibility(View.VISIBLE);
             view.findViewById(R.id.login).setVisibility(View.VISIBLE);
             view.findViewById(R.id.noinfo).setVisibility(View.VISIBLE);
@@ -80,6 +83,7 @@ public class SeeDrF extends Fragment {
             VerifyProfile verifyProfile = new VerifyProfile();
             try {
                 if (!verifyProfile.Verified(firebaseUser.getUid())) {
+                    System.out.println("FFFFFFFFFFFFFFFF");
                     view.findViewById(R.id.log).setVisibility(View.VISIBLE);
                     view.findViewById(R.id.login).setVisibility(View.VISIBLE);
                     view.findViewById(R.id.noinfo).setVisibility(View.VISIBLE);
@@ -87,7 +91,7 @@ public class SeeDrF extends Fragment {
                     view.findViewById(R.id.recycler_view).setVisibility(View.GONE);
 
                 } else {
-
+                        System.out.println("LLLOOOGGG");
                     view.findViewById(R.id.log).setVisibility(View.GONE);
                     view.findViewById(R.id.login).setVisibility(View.GONE);
                     view.findViewById(R.id.noinfo).setVisibility(View.GONE);

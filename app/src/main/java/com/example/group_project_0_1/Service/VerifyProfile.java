@@ -90,7 +90,24 @@ public class VerifyProfile {
         ConnectServer connectServer = new ConnectServer();
         ArrayList<JSONObject> jsonListill= connectServer.connection(SQLill);
         ArrayList<JSONObject> jsonListdr= connectServer.connection(SQLdr);
+        System.out.println("SEEADR+++"+jsonListdr);
+        if(jsonListill.size()<=0 && jsonListdr.size()<=0){
+            return false;
+        }else{
+            return true;
+        }
 
+    }
+
+    public Boolean Verifieda (String uid) throws BrokenBarrierException, InterruptedException {
+
+        String SQLill=new SQLDao().VerifiedIllness(uid);
+        String SQLdr=new SQLDao().VerifiedDr(uid);
+
+        ConnectServer connectServer = new ConnectServer();
+        ArrayList<JSONObject> jsonListill= connectServer.connection(SQLill);
+        ArrayList<JSONObject> jsonListdr= connectServer.connection(SQLdr);
+        System.out.println("SEEADR+++"+jsonListdr);
         if(jsonListill.size()<=0 && jsonListdr.size()<=0){
             return false;
         }else{
