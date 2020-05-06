@@ -69,29 +69,10 @@ public class SeeDrF extends Fragment {
             }
         });
 
-        FirebaseUser firebaseUser=FirebaseAuth.getInstance().getCurrentUser();
-        System.out.println("FFIIIRREEE++"+firebaseUser.getUid());
-        if(firebaseUser==null){
-            System.out.println("BBBBBBBBBBBBB");
-            view.findViewById(R.id.log).setVisibility(View.VISIBLE);
-            view.findViewById(R.id.login).setVisibility(View.VISIBLE);
-            view.findViewById(R.id.noinfo).setVisibility(View.VISIBLE);
-            view.findViewById(R.id.search_drs).setVisibility(View.GONE);
-            view.findViewById(R.id.recycler_view).setVisibility(View.GONE);
 
-        }else {
-            VerifyProfile verifyProfile = new VerifyProfile();
-            try {
-                if (!verifyProfile.Verified(firebaseUser.getUid())) {
-                    System.out.println("FFFFFFFFFFFFFFFF");
-                    view.findViewById(R.id.log).setVisibility(View.VISIBLE);
-                    view.findViewById(R.id.login).setVisibility(View.VISIBLE);
-                    view.findViewById(R.id.noinfo).setVisibility(View.VISIBLE);
-                    view.findViewById(R.id.search_drs).setVisibility(View.GONE);
-                    view.findViewById(R.id.recycler_view).setVisibility(View.GONE);
 
-                } else {
-                        System.out.println("LLLOOOGGG");
+
+
                     view.findViewById(R.id.log).setVisibility(View.GONE);
                     view.findViewById(R.id.login).setVisibility(View.GONE);
                     view.findViewById(R.id.noinfo).setVisibility(View.GONE);
@@ -118,13 +99,9 @@ public class SeeDrF extends Fragment {
 
                         }
                     });
-                }
-            } catch (BrokenBarrierException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+
+
+
         return view;
     }
 
@@ -142,11 +119,10 @@ public class SeeDrF extends Fragment {
 
                             assert dr != null;
 
-                            System.out.println("UID:"+firebaseUsera.getUid());
-                            if (!(dr.getId().equals(firebaseUsera.getUid()))) {
-                                System.out.println("DRLIST+" + dr.getId());
+
+
                                 mDrs.add(dr);
-                            }
+
 
                         }
                         drAdapter = new DrAdapter(getContext(), mDrs);

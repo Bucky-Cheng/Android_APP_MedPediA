@@ -90,7 +90,7 @@ public class VerifyProfile {
         ConnectServer connectServer = new ConnectServer();
         ArrayList<JSONObject> jsonListill= connectServer.connection(SQLill);
         ArrayList<JSONObject> jsonListdr= connectServer.connection(SQLdr);
-        System.out.println("SEEADR+++"+jsonListdr);
+
         if(jsonListill.size()<=0 && jsonListdr.size()<=0){
             return false;
         }else{

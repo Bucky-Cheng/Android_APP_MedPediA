@@ -73,7 +73,10 @@ public class MainActivity extends AppCompatActivity {
 
 
         viewPager.setAdapter(mainFragmentAdapter);
+        viewPager.setOffscreenPageLimit(1);
         tabLayout.setupWithViewPager(viewPager);
+
+
         highLightCurrentTab(0);
 
 
